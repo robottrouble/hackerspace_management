@@ -1,4 +1,4 @@
-from hive76_inventory.inventory.models import *
+from hackerspace_management.inventory.models import *
 from django.forms import ModelForm
 
 class PartsForm(ModelForm):

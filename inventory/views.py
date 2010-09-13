@@ -6,8 +6,8 @@ from django.forms.models import modelformset_factory
 from django.shortcuts import render_to_response
 from django.template.loader import get_template
 from django.template import Context
-from hive76_inventory.inventory.models import *
-from hive76_inventory.inventory.modelforms import *
+from hackerspace_management.inventory.models import *
+from hackerspace_management.inventory.modelforms import *
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth import logout

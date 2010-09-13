@@ -1,13 +1,18 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
-from hive76_inventory.inventory.views import *
+from django.contrib import admin
+from hackerspace_management.inventory.views import *
+from hackerspace_management.asterisk.views import *
+
+admin.autodiscover()
+
 urlpatterns = patterns('',
     # Example:
-    # (r'^hive76_inventory/', include('hive76_inventory.foo.urls')),
+    # (r'^hackerspace_management/', include('hackerspace_management.foo.urls')),
 
     # Uncomment this for admin:
      (r'^$', parts_view_all),
-     (r'^admin/', include('django.contrib.admin.urls')),
+     (r'^admin/(.*)', admin.site.root),
      (r'^locations/$', locations_view_all),
      (r'^locations/new/$', locations_add),
      (r'^locations/view/(\d+)/$', locations_view),
@@ -28,5 +33,6 @@ urlpatterns = patterns('',
      (r'^stock/edit/(\d+)/$', stock_add_edit),
      (r'^reports/$', reports_view_all),
      (r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
-     (r'^accounts/logout/$', logout_view)
+     (r'^accounts/logout/$', logout_view),
+     (r'^auth/add/(\d+)/$', callback_add),
 )
