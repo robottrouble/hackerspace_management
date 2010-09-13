@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block title %}View Vendors{% endblock%}
+
+{% block content %}
+<table align="center">
+        <tr>
+                <th align="left">Name:</th>
+                <td>{{ vendor.name }}</td>
+        </tr>
+        <tr>
+                <th align="left">URL:</th>
+                <td>{{ vendor.URL }}</td>
+        </tr>
+        <tr>
+                <th align="left">Phone:</th>
+                <td>{{ vendor.phone }}</td>
+        </tr>
+        <tr>
+                <th align="left">Fax:</th>
+                <td>{{ vendor.fax }}</td>
+        </tr>
+
+</table>
+<br />
+<br />
+{% if vendor.parts.all %}
+<table align="center" border="1">
+        <tr align="center">
+                <th colspan="3" align="center">Parts</th>
+        </tr>
+        <tr>
+                <th>Name</th>
+                <th>URL</th>
+                <th>Cost</th>
+        </tr>
+        {% for part in vendor.parts.all %}
+        <tr>
+                <td><a href="/parts/view/{{part.part.id}}/">{{ part.part.name }}</a></td>
+                <td><a href="{{part.URL}}">{{ part.URL }}</a></td>
+                <td>{{ part.cost_as_currency }}</td>
+        </tr>
+        {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

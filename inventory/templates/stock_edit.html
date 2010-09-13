@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block title %}Edit Part: {{ part.id }}{% endblock%}
+
+{% block content %}
+<form method="POST" action="">
+<table align="center">
+{{ form.as_table }}
+        <tr><td colspan="2" align="right"><input type="submit" name="Submit" value="Submit"><input type="submit" name="Cancel" value="Cancel"></td></tr>
+</table>
+</form>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+{% block title %}
+{% if form.initial.id %}
+Edit Stock
+{% else %}
+Add Stock
+{% endif %} 
+{% endblock %}
+{% block content %}
+<form method="POST" action="">
+<table align="center">
+        <tr>
+                <td>
+                        Type:          
+                </td>
+                <td>
+                        {{ form.type }}
+                </td>
+                <td>
+                        {% for error in form.type.errors %}
+                                {{ error }}
+                        {% endfor %}
+                </td>
+        </tr>
+        <tr>
+                <td>
+                        Location:
+                </td>
+                <td>
+                        {{ form.location }}
+                </td>
+                <td>
+                        {% for error in form.type.errors %}
+                                {{ error }}
+                        {% endfor %}
+                </td>
+        </tr>
+        <tr>
+                <td>
+                        Serial Number:
+                </td>
+                <td>
+                        {{ form.serial_number }}
+                </td>
+                <td>
+                        {% for error in form.serial_number.errors %}
+                                {{ error }}
+                        {% endfor %}
+                </td>
+        </tr>
+        {% if not form.initial.id %}
+        <tr>
+                <td>
+                        Quantity:
+                </td>
+                <td>
+                        <input type="text" name="quantity" value="1">
+                </td>
+        </tr>
+        <tr>
+                <td>
+                        Notes:
+                </td>
+                <td>
+                        <textarea name="notes" rows="3" columns="20"></textarea>
+                </td>
+        </tr>
+        {% endif %}
+        <tr>
+                <td colspan="2" align="right">
+                        <input type="Submit" name="Cancel" value="Cancel">
+                        <input type="Submit" name="Submit" value="Submit">
+                </td>
+        </tr>
+</table>
+
+</form>
+
+{% endblock %}

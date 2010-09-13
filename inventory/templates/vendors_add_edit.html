@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block title %}
+{% if form.initial.id %}
+Edit Vendor
+{% else %}
+Add Vendor 
+{% endif %} 
+{% endblock %}
+{% block content %}
+<form method="POST" action="">
+<table align="center">
+        {{ form.as_table }}
+        <tr>
+                <td colspan="2" align="right">
+                        <input type="Submit" name="Cancel" value="Cancel">
+                        <input type="Submit" name="Submit" value="Submit">
+                </td>
+        </tr>
+</table>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block title %}View Part{% endblock%}
+
+{% block content %}
+<table align="center">
+        <tr>
+                <th align="left">Name:</th>
+                <td>{{ location.name }}</td>
+        </tr>
+        <tr>
+                <th align="left">Description:</th>
+                <td>{{ location.description }}</td>
+        </tr>
+</table>
+{% endblock %}

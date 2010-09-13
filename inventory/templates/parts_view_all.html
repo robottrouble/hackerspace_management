@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block title %}View All Parts{% endblock%}
+
+{% block content %}
+<div class="pagination" align="center">
+<span class="step-links">
+{% if parts.has_previous %}
+<a href="?page={{ parts.previous_page_number }}">previous</a>
+{% endif %}
+
+<span class="current">
+Page {{ parts.number }} of {{ parts.paginator.num_pages }}.
+</span>
+
+{% if parts.has_next %}
+<a href="?page={{ parts.next_page_number }}">next</a>
+{% endif %}
+</span>
+</div>
+
+<table align=center border=0 cellpadding=10>
+<tr>
+
+    <th colspan=7>Parts</th>
+</tr>
+<tr>
+        <th>&nbsp;</th><th>Name</th><th>Qty In Stock</th><th>Type</th><th>Status</th><th>Revision</th><th>Action</th>
+</tr>
+{% for part in parts.object_list %}
+    <tr bgcolor='#{% cycle 'C0C0C0' 'FFFFFF' %}'>
+        <td>{% if part.photo %}<a href="/parts/view/{{ part.id }}/"><img border="0" src="{{ part.photo.url }}" width="100"></a>{% endif %}</td>
+        <td><a href="/parts/view/{{ part.id }}/">{{ part.name }}</a></td>
+        <td>{{ part.stock.count }}</td>
+        <td>{{ part.get_type_display }}</td>
+        <td>{{ part.get_status_display }}</td>
+        <td>{{ part.revision }}</td>
+        <td align="center"><a class="nohover" href="/parts/edit/{{ part.id }}/"><img src="/media/icons/shadow/standart/png/24x24/001_45.png" border="0"</a></td>
+    </tr>
+{% endfor %}
+
+<tr>
+        <td colspan=6 align="right">&nbsp;</td>
+        <td align="center"><a class="nohover" href="/parts/new"><img border="0" src="/media/icons/shadow/standart/png/24x24/001_01.png"></a></td>
+</tr>
+</table>
+
+<div class="pagination" align="center">
+<span class="step-links">
+{% if parts.has_previous %}
+<a href="?page={{ parts.previous_page_number }}">previous</a>
+{% endif %}
+
+<span class="current">
+Page {{ parts.number }} of {{ parts.paginator.num_pages }}.
+</span>
+
+{% if parts.has_next %}
+<a href="?page={{ parts.next_page_number }}">next</a>
+{% endif %}
+</span>
+</div>
+<br>
+<br>
+
+{% endblock %}

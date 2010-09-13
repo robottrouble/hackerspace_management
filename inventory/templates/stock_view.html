@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block title %}View Stock{% endblock%}
+
+{% block content %}
+<form method="POST" action="">
+<table align="center">
+        <tr>
+                <th >Name</th>
+                <td>{{ item.type.name }}</td>
+        </tr>
+        <tr>
+                <th align="right">Description</th>
+                <td>{{ item.type.description }}</td>
+        </tr>
+        </tr>
+                <th align="right">Location:</th>
+                <td>{{ item.location.name }}</td>
+        </tr>
+        <tr>
+                <th align="right">Serial Number:</th>
+                <td>{{ item.serial_number }}</td>
+        </td>
+</table>
+</form>
+<p />
+<p />
+<form method="POST" action="" name="commentForm">
+<table align="center">
+        <tr>
+                <th colspan="2">Comments</th>
+        </tr>
+        {% for comment in comments %}
+        <tr>
+                <td><b>Author:</b> {{ comment.author.user_name }}</td>
+                <td><b>Date:</b> {{ comment.date }}</td>
+        <tr>
+                <td colspan="2">{{ comment.text }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+                <td colspan="2">Add Comment:</td>
+        </tr>
+        <tr>
+                <td colspan="2"><textarea name=text cols="30" rows="3"></textarea></td>
+        </tr>
+        <tr>
+        </tr>
+                <td align="right" colspan="2"><input type="Submit" name="Submit_Comment" value="Submit"></td> 
+        <tr>
+</table>
+</form>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+
+{% block title %}Add Part{% endblock %}
+
+{% block content %}
+<form method="POST" action="">
+<table align="center">
+        <tr>
+                <td>
+                        Name:
+                </td>
+                <td>
+                        {{ form.name }}
+                </td>
+                <td style="color: red">
+                        {% for error in form.name.errors %}
+                                {{ error }}
+                        {% endfor %}
+                </td>
+        <tr>
+        <tr>
+                <td>
+                        Description:
+                </td>
+                <td>
+                        {{ form.description }}
+                </td>
+                <td style="color: red">
+                        {% for error in form.description.errors %}
+                                {{ error }}
+                        {% endfor %}
+                </td>
+        </tr>
+        <tr>
+                <td>
+                        Minimum Stock:
+                </td>
+                <td>
+                        {{ form.minimum_stock }}
+                </td>
+                <td style="color: red">
+                        {% for error in form.minimum_stock.errors %}
+                                {{ error }}
+                        {% endfor %}
+                </td>
+        </tr>
+        <tr>
+                <td>
+                        Type:
+                </td>
+                <td>
+                        {{ form.type }}
+                </td>
+                <td style="color: red">
+                        {% for error in form.type.errors %}
+                                {{ error }}
+                        {% endfor %}
+                </td>
+        </tr>
+        <tr>
+                <td>
+                        Status:
+                </td>
+                <td>
+                        {{ form.status }}
+                </td>
+                <td style="color: red">
+                        {% for error in form.status.errors %}
+                                {{ error }}
+                        {% endfor %}
+                </td>
+        </tr>
+        <tr>
+                <td>
+                        Image:
+                </td>
+                <td>
+                        {{ form.photo }}
+                </td>
+                <td>
+                        {% for error in form.status.errors %}
+                                {{ error }}
+                        {% endfor %}
+                </td>
+        </tr>
+        <tr>
+                <td align="right">
+                        <input type="Submit" name="Submit" value="Submit">
+                        <input type="Submit" name="Cancel" value="Cancel">
+                </td>
+        </tr>
+</form>
+</table>
+{% endblock %}

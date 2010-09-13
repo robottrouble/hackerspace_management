@@ -1,0 +1,173 @@
+{% extends 'layout.html' %}
+
+{% block title %}View Part{% endblock%}
+
+{% block content %}
+<form method="POST" action="" enctype="multipart/form-data">
+<table align="center">
+        <tr>
+                <td colspan="3" align="center">{% if part.photo %}<a href="{{ part.photo.url }}"><img border="0" src="{{ part.photo.url }}" width="200"></a>{% endif %}</td>
+        </tr>
+        <tr>
+                <th align="right">Name:</th>
+                <td>{{ part.name }}</td>
+        </tr>
+        <tr>
+                <th align="right">Description:</th>
+                <td>{{ part.description }}</td>
+        </tr>
+        <tr>
+                <th align="right">Minimum Stock:</th>
+                <td>{{ part.minimum_stock }}</td>
+        </tr>
+        <tr>
+                <th align="right">Current Stock:</th>
+                <td>{{ part.stock.count }}</td>
+        </tr>
+        <tr>
+                <th align="right">Status:</th>
+                <td>{{ part.get_status_display }}</td>
+        </tr>
+        <tr>
+                <th align="right">Created By:</th>
+                <td>{{ part.created_by }}</td>
+        </tr>
+        </tr>
+                <th align="right">Last Modified By:</th>
+                <td>{{ part.last_modified_by }}</td>
+        </tr>
+        <tr>
+                <td colspan="2" align="center"><a href="/parts/edit/{{ part.id}}/">Edit</a></td>
+        </tr>
+</table>
+<br>
+<br>
+<table align="center">
+        <tr>
+                <th colspan="2">Attachments</th>
+        </tr>
+        {% for attachment in part.attachments.all %}
+        <tr>
+                <td><a href="{{ attachment.file.url }}">{{ attachment.basename }}</a></td><td>{{ attachment.file.size }} bytes</td>
+        </tr>
+        {% endfor %}
+        <tr>
+                <td>{{ partAttachmentsForm.file }} {{ partAttachmentsForm.file.errors }}<input type="hidden" name="part" value="{{ part.id }}">{{ partAttachmentsForm.part.errors }}</td><td><input type="Submit" name="Submit" value="Add Attachment"></td>
+        </tr>
+</table>
+<br>
+<br>
+<table align="center">
+        <tr>
+                <th colspan="2">Comments</th>
+        </tr>
+        {% for comment in part.comments.all %}
+        <tr>
+                <td><b>Author:</b> {{ comment.author.user_name }}</td>
+                <td><b>Date:</b> {{ comment.date }}</td>
+        <tr>
+        <tr>
+                <td colspan="2">{{ comment.text }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+                <td colspan="2">Add Comment:</td>
+        </tr>
+        <tr>
+                <td colspan="2"><textarea name=text cols="30" rows="3"></textarea></td>
+        </tr>
+        <tr>
+        </tr>
+                <td align="right" colspan="2"><input type="Submit" name="Submit" value="Add Comment"></td> 
+        <tr>
+</table>
+<br>
+<br>
+{% if part.components.count %}
+<table align="center">
+        <tr>
+                <th colspan="3">Components</th>
+        </tr>
+        {% if part.components.count %}
+        <tr>
+                <td>Name</td><td>Qty In Assy</td><td>Qty In Stock</td>
+        </td>        
+        {% endif %}
+        {% for component in part.components.all %}
+        <tr>
+                <td>{{ component.child_part.name }}</td><td align="center">{{ component.quantity }}</td><td align="center">{{ component.child_part.stock.count }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+                <th colspan="3"><a href="/parts/components/edit/{{ part.id }}">Edit Components</a></th>
+        </tr>
+</table>
+<br>
+<br>
+{% endif %}
+<table align="center">
+        <tr>
+                <th colspan="2">Current Inventory</th>
+        </tr>
+        <tr>
+                <th>Location</th>
+                <th>Quantity</th>
+        </tr>
+        {% for loc in stock %}
+        <tr>
+                <td>{{ loc.name }}</td>
+                <td>{{ loc.value }}</td>
+        </tr>
+        {% endfor %}
+</table>
+<br>
+<br>
+<table align="center">
+        <tr>
+                <th colspan="2">Cross-Reference</th>
+        </tr>
+        <tr>
+                <td>Name</td>
+                <td>Quantity</td>
+                <td>Location</td>
+        </td>
+        {% for crossPart in part.cross_reference.all %}
+        <tr>
+                <td><a href="/parts/view/{{ crossPart.id }}">{{ crossPart.name }}</a></td>
+                <td align="right">{{ crossPart.stock.count }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+                <td colspan="2" align="right">Add Cross-Reference</td>
+        </tr>
+</table>
+<br>
+<br>
+<table align="center">
+        <tr>
+                <th colspan="5">Vendors</th>
+        </tr>
+        <tr>
+                <th>Vendor</th><th>Part Number</th><th>URL</th><th>Cost</th><th>Minimum Order</th>
+        </tr>
+{% if part.vendors %}
+        {% for vendor in part.vendors.all %}
+        <tr>
+                <td align="center">{{ vendor.vendor.name}}</td><td align="center">{{ vendor.vendor.part_number }}</td><td align="center">{{ vendor.URL }}</td><td align="center">{{ vendor.cost_as_currency }}</td><td align="center">{{ vendor.minimum_order }}</td>
+        </tr>
+        {% endfor %}
+{% endif %}
+        <tr>
+                <td>{{ vendor.vendor.name}}</td><td>{{ vendor.URL }}</td><td>{{ vendor.cost_as_currency }}</td><td align="center">{{ vendor.minimum_order }}</td>
+        </tr>
+        <tr>
+                <td>{{ partVendorsForm.vendor }} {{ partVendorsForm.vendor.errors }}</td>
+                <td>{{ partVendorsForm.part_number }} {{ partVendorsForm.part_number.errors }}</td>
+                <td>{{ partVendorsForm.URL }} {{ partVendorsForm.URL.errors }}</td>
+                <td>{{ partVendorsForm.cost }} {{ partVendorsForm.cost.errors }} </td>
+                <td>{{ partVendorsForm.minimum_order }} {{ partVendorsForm.minimum_order.errors }}</td>
+                <td><input type="hidden" name="part" value="{{ part.id }}">{{ partVendorsForm.part.errors }} <input type="Submit" name="Submit" value="Add Vendor"></td>
+        </tr>
+</table>
+</form>
+{% endblock %}

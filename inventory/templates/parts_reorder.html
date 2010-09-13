@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}Re-Order Report{% endblock%}
+
+{% block content %}
+<form method="POST" action="">
+<table align="center">
+        <tr>
+                <th colspan="4">Re-Order Report</th>
+        </tr>
+        <tr>
+                <td>Name</td>
+                <td>Minimum Stock</td>
+                <td>Quantity On Hand</td>
+                <td>Quantity To Order</td>
+        </tr>
+        {% for part in parts %}
+        <tr>
+                <td>{{ part.name }}</td>
+                <td align="right">{{ part.minimum_stock }}</td>
+                <td align="right">{{ part.stock.count }}</td>
+                <td align="right"><font color="red">{{ part.get_reorder_count }}</font></td>
+        </tr>
+        {% endfor %}
+</table>
+</form>
+{% endblock %}

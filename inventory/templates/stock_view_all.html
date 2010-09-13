@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+
+{% block title %}Stock: View All{% endblock%}
+
+{% block content %}
+<form method="POST" action="">
+<table align=center border=0>
+        <tr>
+                <th colspan=2>Search</th>
+        </tr>
+        <tr>
+                <td>
+                        <label for="txtPartSearch">Part Number:</label>
+                        <input type="text" name="txtPartSearch">
+                </td>
+                <td>
+                        <label for="txtLocationSearch">Location:</label>
+                        <input type="text" name="txtLocationSearch">
+                </td>
+        </tr>
+        <tr>
+                <td align="center" colspan="2">
+                        <input type="submit" name="submit" value="Reset">
+                        <input type="submit" name="submit" value="Search">
+                </td>
+        </tr>
+</table>
+</form>
+
+<div class="pagination" align="center">
+<span class="step-links">
+{% if stock.has_previous %}
+<a href="?page={{ stock.previous_page_number }}">previous</a>
+{% endif %}
+<span class="current">
+Page {{ stock.number }} of {{ stock.paginator.num_pages }}.
+</span>
+{% if stock.has_next %}
+<a href="?page={{ stock.next_page_number }}">next</a>
+{% endif %}
+</span>
+</div>
+<p />
+<p />
+<table align='center' border='0' cellpadding='5' cellspacing='0'>
+        <tr>
+                <th colspan="4">Stock</th>
+        </tr>
+        <tr>
+                <th>Name</th><th>Location</th><th>&nbsp;</th>
+        <tr>
+{% for item in stock.object_list %}
+        <tr bgcolor="#{% cycle 'C0C0C0' 'FFFFFF' %}">
+                <td><a href="/stock/view/{{ item.id }}/">{{ item.type.name }}</a></td>
+                <td>{{ item.location.name }}</td>
+                <td><a href="/stock/edit/{{ item.id }}/">Edit</a></td>
+        </tr>
+{% endfor %}
+        <tr>
+                <td colspan=5 align="right"><a href="/stock/new">Add New Item</a></td>
+        </tr>
+</table>
+
+<p />
+<p />
+<div class="pagination" align="center">
+<span class="step-links">
+{% if stock.has_previous %}
+<a href="?page={{ stock.previous_page_number }}">previous</a>
+{% endif %}
+
+<span class="current">
+Page {{ stock.number }} of {{ stock.paginator.num_pages }}.
+</span>
+
+{% if stock.has_next %}
+<a href="?page={{ stock.next_page_number }}">next</a>
+{% endif %}
+</span>
+</div>
+
+{% endblock %}

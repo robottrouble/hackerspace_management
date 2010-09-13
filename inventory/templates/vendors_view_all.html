@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% block title %}View All Vendors{% endblock%}
+
+{% block content %}
+
+<div class="pagination" align="center">
+<span class="step-links">
+{% if vendors.has_previous %}
+<a href="?page={{ vendors.previous_page_number }}">previous</a>
+{% endif %}
+
+<span class="current">
+Page {{ vendors.number }} of {{ vendors.paginator.num_pages }}.
+</span>
+
+{% if vendors.has_next %}
+<a href="?page={{ vendors.next_page_number }}">next</a>
+{% endif %}
+</span>
+</div>
+<p />
+<p />
+        <table align='center' border='0'>
+                <tr>
+                        <th colspan=4>Vendors</th>
+                </tr>
+                <tr>
+                        <th>Name</th><th>URL</th><th>Phone #</th>
+                </tr>
+                {% for vendor in vendors.object_list %}
+                        <tr bgcolor="#{% cycle "C0C0C0" "FFFFFF" %}">
+                                <td><a href="/vendors/view/{{ vendor.id}}/">{{ vendor.name }}</a></td>
+                                <td>{{ vendor.URL }}</td><td>{{ vendor.phone }}</td>
+                                <td><a href="/vendors/edit/{{ vendor.id }}/">Edit</a></td>
+                        </tr>
+                {% endfor %}
+        <tr>
+                <tr>
+                        <td colspan=4 align=right><a href="/vendors/add/">Add New Vendor</a></td>
+                </tr>
+        </tr>
+        </table>
+<p />
+<p />
+<div class="pagination" align="center">
+<span class="step-links">
+{% if vendors.has_previous %}
+<a href="?page={{ vendors.previous_page_number }}">previous</a>
+{% endif %}
+
+<span class="current">
+Page {{ vendors.number }} of {{ vendors.paginator.num_pages }}.
+</span>
+
+{% if vendors.has_next %}
+<a href="?page={{ vendors.next_page_number }}">next</a>
+{% endif %}
+</span>
+</div>
+
+
+{% endblock %}

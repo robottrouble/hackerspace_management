@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}View All Locations{% endblock%}
+
+{% block content %}
+
+
+
+<div class="pagination" align="center">
+<span class="step-links">
+{% if locations.has_previous %}
+<a href="?page={{ locations.previous_page_number }}">previous</a>
+{% endif %}
+
+<span class="current">
+Page {{ locations.number }} of {{ locations.paginator.num_pages }}.
+</span>
+
+{% if locations.has_next %}
+<a href="?page={{ locations.next_page_number }}">next</a>
+{% endif %}
+</span>
+</div>
+<p />
+<p />
+<table align=center border=0>
+<tr>
+
+    <th colspan=3>Locations</th>
+</tr>
+<tr>
+    <th>Name</th><th>Description</th><th>&nbsp;</th>
+<tr>
+{% for loc in locations.object_list %}
+    <tr bgcolor="#{% cycle "C0C0C0" "FFFFFF" %}">
+        <td><a href="/locations/view/{{ loc.id }}/">{{ loc.name }}</a></td>
+        <td>{{ loc.description }}</td>
+        <td><a href="/locations/edit/{{ loc.id }}/">Edit</a></td>
+    </tr>
+{% endfor %}
+<tr>
+        <td colspan=3 align="right"><a href="/locations/new">Add New Location</a></td>
+</tr>
+</table>
+<p />
+<div class="pagination" align="center">
+<span class="step-links">
+{% if locations.has_previous %}
+<a href="?page={{ locations.previous_page_number }}">previous</a>
+{% endif %}
+
+<span class="current">
+Page {{ locations.number }} of {{ locations.paginator.num_pages }}.
+</span>
+
+{% if locations.has_next %}
+<a href="?page={{ locations.next_page_number }}">next</a>
+{% endif %}
+</span>
+</div>
+
+{% endblock %}
